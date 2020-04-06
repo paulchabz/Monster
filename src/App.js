@@ -6,16 +6,21 @@ class App extends Component {
   constructor () {
     super();
     this.state = {
-      string: "Hello and Welcome Again"
+      monsters: []  
     }
+  }
+  componentDidMount() {
+    // calling the api for data
+    fetch(`https://jsonplaceholder.typicode.com/users`)
+    .then(response => response.json())
+    .then(users => this.setState({monsters: users}))
   }
   render () {
     return (
       <div className="App">
-        <header className="App-header">
-         <p>{this.state.string}</p>
-          <button onClick={() => this.setState({string: "Hello Paul Welcome"})}>Change your State</button>
-        </header>
+        {
+          this.state.monsters.map((monster) =><h1 key={monster.id}>{monster.name}</h1> )
+        }
       </div>
     )
   }
